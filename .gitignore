@@ -1,0 +1,12 @@
+*.retry
+vaultpass
+**/.idea
+.vagrant/*
+*.jar
+*.log
+*.zip
+.DS_Store
+
+__pycache__
+*.pyc
+*.cach

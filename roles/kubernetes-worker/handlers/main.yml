@@ -1,0 +1,5 @@
+---
+- name: join worker node
+  shell: |
+   kubeadm reset -f
+   cat {{ kubernetes_host_dir }}/conf/kubeadm_join_token | tail -2 | sh

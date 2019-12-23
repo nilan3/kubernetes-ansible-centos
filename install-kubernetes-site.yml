@@ -1,0 +1,26 @@
+---
+# - import_playbook: check.yml
+
+- hosts: all-servers
+  roles:
+    - name: common-packages
+      tags: [base, common-packages]
+
+    - name: network
+      tags: [base, network]
+
+    - name: docker
+      tags: [base, docker]
+
+    - name: kubernetes
+      tags: [base, kubernetes]
+
+- hosts: master-nodes
+  roles:
+    - name: kubernetes-master
+      tags: [kubernetes, kubernetes-master]
+
+- hosts: worker-nodes
+  roles:
+    - name: kubernetes-worker
+      tags: [kubernetes, kubernetes-worker]

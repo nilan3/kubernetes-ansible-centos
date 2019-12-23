@@ -1,0 +1,24 @@
+---
+
+- name: Install pip
+  yum: name={{ item }} state=installed
+  with_items:
+    - libselinux-python
+    - libsemanage-python
+    - policycoreutils-python
+    - python-pip
+    - python36-pip
+
+- name: pip packages
+  pip: name={{ item.name }} version={{ item.version }} state=present
+  with_items:
+    - name: setuptools
+      version: 42.0.2
+    - name: docker
+      version: 3.2.1
+    - name: awscli
+      version: 1.16.308
+    - name: requests
+      version: 2.18.4
+    - name: openshift
+      version: 0.10.1

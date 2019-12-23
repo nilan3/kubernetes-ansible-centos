@@ -1,0 +1,7 @@
+[Service]
+Restart=always
+StartLimitInterval=0
+RestartSec=15
+ExecStartPre=-/sbin/ip link del docker0
+ExecStart=
+ExecStart=/usr/bin/docker daemon --live-restore --oom-score-adjust=-1000 --shutdown-timeout=50 --iptables=false --ipv6=false {{ docker_storage_driver }} -H unix:///var/run/docker.sock --disable-legacy-registry=true {{ docker_logging }}

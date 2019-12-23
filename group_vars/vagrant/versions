@@ -1,0 +1,3 @@
+---
+expected_ansible_version: 2.5.6
+expected_python_version: 3.6

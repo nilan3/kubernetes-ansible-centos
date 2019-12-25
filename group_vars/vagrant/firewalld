@@ -1,6 +1,7 @@
 ---
 master_node_ports:
   - "22/tcp"
+  - "443/tcp"
   - "6443/tcp"
   - "2379-2380/tcp"
   - "10250/tcp"

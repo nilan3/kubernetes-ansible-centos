@@ -1,50 +1,18 @@
-apiVersion: kubeadm.k8s.io/v1beta1
-kind: ClusterConfiguration
-# kubernetesVersion: v1.14.3 # change according to kubeadm supported version
-apiServer:
-  certSANs:
-  - 127.0.0.1
-  extraArgs:
-    authorization-mode: Node,RBAC
-    feature-gates: "TTLAfterFinished=true"
-    audit-policy-file: "/etc/kubernetes/audit-policy.yaml"
-    audit-log-path: "/etc/kubernetes/audit/kube-apiserver-audit.log"
-    audit-log-maxage: "2"
-  extraVolumes:
-  - name: "audit-policy"
-    hostPath: "/etc/kubernetes/audit-policy.yaml"
-    mountPath: "/etc/kubernetes/audit-policy.yaml"
-    readOnly: false
-    pathType: File
-  - name: "audit-volume"
-    hostPath: "/var/log/kubernetes/audit"
-    mountPath: "/etc/kubernetes/audit"
-    readOnly: false
-    pathType: DirectoryOrCreate
-  timeoutForControlPlane: 4m0s
-certificatesDir: /etc/kubernetes/pki
-clusterName: kubernetes
-controlPlaneEndpoint: ""
-controllerManager:
-  extraArgs:
-    feature-gates: "TTLAfterFinished=true"
-    bind-address: 0.0.0.0
-dns:
-  type: CoreDNS
-etcd:
-  local:
-    dataDir: /var/lib/etcd
-imageRepository: k8s.gcr.io
-networking:
-  dnsDomain: cluster.local
-  podSubnet: {{ podSubnet }}
-  serviceSubnet: {{ serviceSubnet }}
-scheduler:
-  extraArgs:
-    feature-gates: "TTLAfterFinished=true"
-    bind-address: 0.0.0.0
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: "{{ net_internal_ip }}"
+  bindPort: {{ kube_apiserver_port }}
 ---
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-FeatureGates:
-  TTLAfterFinished: true
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+kubernetesVersion: stable
+controlPlaneEndpoint: 0.0.0.0:{{ kube_apiserver_frontend_port }}
+networking:
+  podSubnet: {{ podSubnet }}
+etcd:
+    external:
+        endpoints:
+{% for host in groups['master-nodes'] %}
+        - http://{{ hostvars[host].net_internal_ip }}:{{ etcd_client_port }}
+{% endfor %}

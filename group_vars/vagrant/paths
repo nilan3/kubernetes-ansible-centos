@@ -1,3 +1,0 @@
----
-kubernetes_host_dir: /srv/services/kubernetes
-kubeadm_join_token_path: "{{ playbook_dir }}/roles/kubernetes-worker/files/kubeadm_join_token"

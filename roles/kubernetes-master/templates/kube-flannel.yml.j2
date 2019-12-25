@@ -1,4 +1,5 @@
 ---
+# https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -43,7 +44,7 @@ spec:
     max: 65535
   # SELinux
   seLinux:
-    # SELinux is unused in CaaSP
+    # SELinux is unsed in CaaSP
     rule: 'RunAsAny'
 ---
 kind: ClusterRole
@@ -105,8 +106,8 @@ metadata:
 data:
   cni-conf.json: |
     {
+      "cniVersion": "0.2.0",
       "name": "cbr0",
-      "cniVersion": "0.3.1",
       "plugins": [
         {
           "type": "flannel",
@@ -199,7 +200,7 @@ spec:
         securityContext:
           privileged: false
           capabilities:
-            add: ["NET_ADMIN"]
+             add: ["NET_ADMIN"]
         env:
         - name: POD_NAME
           valueFrom:

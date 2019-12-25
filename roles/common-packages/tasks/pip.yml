@@ -9,16 +9,21 @@
     - python-pip
     - python36-pip
 
+- name: remove pip docker
+  pip:
+    name: docker
+    state: absent
+
 - name: pip packages
   pip: name={{ item.name }} version={{ item.version }} state=present
   with_items:
     - name: setuptools
       version: 42.0.2
-    - name: docker
-      version: 3.2.1
+    - name: docker-py
+      version: 1.10.6
     - name: awscli
       version: 1.16.308
     - name: requests
-      version: 2.18.4
+      version: 2.22.0
     - name: openshift
       version: 0.10.1

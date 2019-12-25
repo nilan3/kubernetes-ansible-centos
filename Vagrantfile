@@ -3,8 +3,8 @@ require 'getoptlong'
 Vagrant.require_version ">= 1.8.1"
 
 tags=Array.new
-numberOfVms=3
-vmMemory=3072
+numberOfVms=4
+vmMemory=2048
 
 sshKey="#{Dir.home}/.ssh/id_rsa.pub"
 
@@ -30,12 +30,12 @@ Vagrant.configure("2") do |config|
         v.cpus = 2
         v.memory = vmMemory
       end
-      host.vm.provider :libvirt do |domain|
-        domain.memory = vmMemory
-        domain.cpus = 2
-        domain.nested = true
-        domain.volume_cache = 'default'
-      end
+      # host.vm.provider :libvirt do |domain|
+      #   domain.memory = vmMemory
+      #   domain.cpus = 2
+      #   domain.nested = true
+      #   domain.volume_cache = 'default'
+      # end
     end
   end
 end

@@ -40,6 +40,10 @@
   register: nodes
   until:
     - '" NotReady " not in nodes.stdout'
-  retries: 30
+  retries: 35
   delay: 10
   run_once: true
+
+- name: label worker node
+  shell: kubectl label nodes {{ hostname }} nodetype=worker
+  when: new_joiner|default(false)

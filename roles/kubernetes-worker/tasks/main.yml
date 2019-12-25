@@ -40,6 +40,6 @@
   register: nodes
   until:
     - '" NotReady " not in nodes.stdout'
-  retries: 20
+  retries: 30
   delay: 10
   run_once: true

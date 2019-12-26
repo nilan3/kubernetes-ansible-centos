@@ -1,5 +1,13 @@
 # k8s-vagrant-ansible
+This project includes a Vagrantfile and Ansible Playbook which allows you to deploy a scalable High-Availability Kubernetes cluster in your local cluster running 4 CentOS7 Virtual Machines (using vagrant and virtualbox). This playbook can be easily extended for deployment on Bare Metal/AWS EC2/Google Compute Engine instances and can be used as a foundation for deployment into a production environment.
 
+The setup includes the following components:
+- 2 Master nodes
+- 2 Worker nodes
+- HA Proxy running on all nodes within Docker containers
+- etcd cluster running on master nodes within Docker containers
+- Canal for Pod Networking
+- Kubernetes Dashboard with admin user service account for Cluster Monitoring
 
 ## Setting up local cluster using vagrant
 
@@ -51,3 +59,4 @@ You'll need the token to access the kubernetes dashboard so run this command on 
 ```
 kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 ```
+![Alt text](misc/images/dashboard.png?raw=true "Kubernetes Dashboard")

@@ -1,6 +1,7 @@
 ---
 - name: install network add-on
-  command: kubectl apply -f /srv/services/kubernetes/conf/kube-flannel.yml
+  command: kubectl apply -f https://docs.projectcalico.org/v3.11/manifests/canal.yaml
+  # command: kubectl apply -f {{ kubernetes_host_dir }}/conf/kube-canal.yml
 
 - name: join master replica node
   shell: |

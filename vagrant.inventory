@@ -10,8 +10,8 @@ ansible_python_interpreter=/usr/bin/python
 [all-servers:children]
 vagrant
 
-[centos7:children]
-all-servers
+[admin-tasks]
+node1
 
 [master-nodes]
 node1

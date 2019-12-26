@@ -33,6 +33,12 @@
       tags: [kubernetes, kubernetes-master]
 
 - hosts: worker-nodes
+  serial: 1
   roles:
     - name: kubernetes-worker
       tags: [kubernetes, kubernetes-worker]
+
+- hosts: admin-tasks
+  roles:
+    - name: kubernetes-dashboard
+      tags: [kubernetes, kubernetes-dashboard]

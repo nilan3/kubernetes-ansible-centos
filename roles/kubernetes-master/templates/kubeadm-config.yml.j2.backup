@@ -1,7 +1,13 @@
 apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: "{{ net_internal_ip }}"
+  bindPort: {{ kube_apiserver_port }}
+---
+apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 kubernetesVersion: stable
-controlPlaneEndpoint: {{ controlPlaneEndpoint }}
+controlPlaneEndpoint: 0.0.0.0:{{ kube_apiserver_frontend_port }}
 networking:
   podSubnet: {{ podSubnet }}
 etcd:

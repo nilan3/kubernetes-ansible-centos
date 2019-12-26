@@ -43,7 +43,7 @@
 #     definition: "{{ lookup('template','templates/kube-flannel.yml.j2') }}"
 
 - name: copy kubernetes network add-on config
-  template: src=templates/kube-flannel.yml.j2 dest="{{ kubernetes_host_dir }}/conf/kube-flannel.yml"
+  template: src=templates/kube-canal.yml.j2 dest="{{ kubernetes_host_dir }}/conf/kube-canal.yml"
   notify: install network add-on
   run_once: true
 
@@ -54,5 +54,5 @@
   register: nodes
   until:
     - '" NotReady " not in nodes.stdout'
-  retries: 15
+  retries: 30
   delay: 10

@@ -1,7 +1,7 @@
 # k8s-vagrant-ansible
 
 
-## Set up
+## Setting up local cluster using vagrant
 
 Install latest version of ansible.
 ```
@@ -16,15 +16,38 @@ update /etc/hosts file to include the following:
       192.168.120.12 node2
       192.168.120.13 node3
 
+update ~/.ssh/config to include the following:
+      Host 192.168.120.1? node?
+      User vagrant
+      StrictHostKeyChecking no
+      ForwardAgent yes
+
 Run the following to create cluster of VMs.
 ```
 vagrant up
 vagrant status
-ssh vagrant@node1
-ssh vagrant@node2
 ```
 You can easily destroy the cluster by:
 ```
 vagrant halt
-vagrant destroy
+vagrant destroy -f
+```
+
+## Running Ansible Playbook
+
+If you are deploying this on bare metal / AWS EC2 / Google Compute Engine instances, create new `inventory` and `host_vars` files with the correct IPs which can be accessed via SSH.
+
+The following steps will allow you to deploy a Kubernetes HA cluster on your local vagrant cluster.
+```
+ansible-playbook -e "ansible_user=vagrant" -i vagrant.inventory install-kubernetes-site.yml
+```
+Deployment may take a while but once it's done, you'll need to set up an SSH tunnel to access port 7000 on the admin node and run `port-forward` on dashboard service.
+```
+ssh -L 127.0.0.1:7000:127.0.0.1:7000 root@node1
+kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 7000:80 &
+```
+Dashboard can be accessed now on http://127.0.0.1:7000/#/login
+You'll need the token to access the kubernetes dashboard so run this command on the admin node:
+```
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 ```

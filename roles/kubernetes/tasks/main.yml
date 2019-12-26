@@ -34,6 +34,14 @@
 - name: copy configuration file
   template: src=templates/k8s.conf dest="/etc/sysctl.d/k8s.conf"
 
+- name: copy kubelet service system configuration
+  template: src="kubelet.j2" dest="/etc/sysconfig/kubelet"
+  notify:
+    - reload systemd
+    - restart kubelet
+
+- meta: flush_handlers
+
 - name: Starting and Enabling the kubelet
   service:
     name: kubelet

@@ -5,13 +5,12 @@ The setup includes the following components:
 - 2 Master nodes
 - 2 Worker nodes
 - HA Proxy running on all nodes within Docker containers
-- etcd cluster running on master nodes within Docker containers
-- Canal for Pod Networking
+- external etcd cluster running on master nodes within Docker containers
+- Canal (Calico + Flannel) for Pod Networking
 - Kubernetes Dashboard with admin user service account for Cluster Monitoring
 
-## Setting up local cluster using vagrant
-
-Install latest version of ansible.
+## Setting up local cluster using Vagrant
+Install latest version of Ansible.
 ```
 python3 -m pip install -U ansible
 ```

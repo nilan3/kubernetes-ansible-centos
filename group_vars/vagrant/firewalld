@@ -1,5 +1,6 @@
 ---
 master_node_ports:
+  - "80/tcp"
   - "22/tcp"
   - "443/tcp"
   - "6443/tcp"
@@ -12,6 +13,7 @@ master_node_ports:
   - "30000-32767/tcp"
 
 worker_node_ports:
+  - "80/tcp"
   - "22/tcp"
   - "10250/tcp"
   - "10255/tcp"

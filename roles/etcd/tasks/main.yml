@@ -15,7 +15,7 @@
     cluster_state: "new"
     token: "asfsd13423sdfsdfg12"
 
-- name: start haproxy
+- name: start etcd
   docker_container:
     name: etcd
     state: started

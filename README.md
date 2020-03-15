@@ -10,6 +10,8 @@ The setup includes the following components:
 - Canal (Calico + Flannel) for Pod Networking
 - Kubernetes Dashboard with admin user service account for Cluster Monitoring
 
+![Alt text](misc/images/architecture.png?raw=true "Architecture")
+
 ## Setting up local cluster using Vagrant
 Install latest version of Ansible.
 ```
